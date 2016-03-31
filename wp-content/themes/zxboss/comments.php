@@ -1,0 +1,141 @@
+<div id="cajacomentario">
+   
+   <!--COMIENZO CUADRO DE COMENTARIOS-->
+   <div id="respond">
+ 
+<section id="contenedorcoment"> 
+      <div id="sombra">
+ 
+ <div id="cancel-comment-reply">
+    <h3><?php comment_form_title( 'Deja una comentario', 'Deja una comentario a %s' ); ?></h3>
+ 
+    
+        <?php cancel_comment_reply_link(); ?>
+    </div>
+ 
+    <?php if ( get_option('comment_registration') && !is_user_logged_in() ) : ?>
+        <p>You must be <a href="<?php echo wp_login_url( get_permalink() ); ?>">logged in</a> to post a comment.</p>
+    <?php else : ?>
+ 
+    <form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
+ 
+        <?php if ( is_user_logged_in() ) : ?>
+ 
+            <p>Logueado como <a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a>. <a href="<?php echo wp_logout_url(get_permalink()); ?>" title="Log out of this account">Desloguearse »</a></p>
+ 
+        <?php else : ?>
+ 
+          <div>
+            <!---input-->
+          <div class="logueo">
+                <input type="text" name="author" id="author" value="<?php echo esc_attr($comment_author); ?>" size="22" tabindex="1" <?php if ($req) echo "aria-required='true'"; ?> />
+                <label for="author">Nombre <?php if ($req) echo "(required)"; ?></label>
+            </div>
+ 
+            <div class="logueo">
+                <input type="text" name="email" id="email" value="<?php echo esc_attr($comment_author_email); ?>" size="22" tabindex="2" <?php if ($req) echo "aria-required='true'"; ?> />
+                <label for="email">E-Mail (no sera publicado) <?php if ($req) echo "(required)"; ?></label>
+            </div>
+ 
+             <div class="logueo">
+                <input type="text" name="url" id="url" value="<?php echo esc_attr($comment_author_url); ?>" size="22" tabindex="3" />
+                <label for="url">Pagina Web</label>
+            </div>
+          
+        <?php endif; ?>
+ 
+        <!--<p>You can use these tags: <code><?php echo allowed_tags(); ?></code></p>-->
+        <!--ESTILO Y CONFI CUADRO Y BOTONES-->
+        <div>
+            
+            <div id="texarea">
+            <textarea name="comment" id="comment" cols="58" rows="10" tabindex="4"></textarea>
+            </div>
+        </div>
+ 
+        <div>
+            <div id="submitc">
+            <input name="submit" type="submit" id="submit" tabindex="5" value="Enviar comentario" />
+            <?php comment_id_fields(); ?>
+        </div>
+ 
+ 
+ 
+
+        
+ 
+        <?php do_action('comment_form', $post->ID); ?>
+ 
+    </form>
+ 
+    <?php endif; // If registration required and not logged in ?>
+ 
+ <!-------------------->
+   </div>
+ </section>
+ <!-------------------->
+
+
+
+<!--FIN CUADRO DE COMENTARIOS-->
+<!--FIN CUADRO DE COMENTARIOS-->
+<!--FIN CUADRO DE COMENTARIOS-->
+
+
+   <div id="imprimecomentario">
+
+<?php
+ 
+    if (!empty($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
+        die ('Please do not load this page directly. Thanks!');
+ 
+    if ( post_password_required() ) { ?>
+        This post is password protected. Enter the password to view comments.
+    <?php
+        return;
+    }
+?>
+ 
+<?php if ( have_comments() ) : ?>
+ 
+    <h3 id="comments"><?php comments_number('Sin Respuesta', 'Una Respuesta', '% Respuestas' );?></h3>
+     
+    
+    <!--<div class="navigation">
+        <div class="next-posts"><?php previous_comments_link() ?></div>
+        <div class="prev-posts"><?php next_comments_link() ?></div>
+    </div>-->
+    
+    <ol class="commentlist">
+        <?php wp_list_comments(); ?>
+        
+    </ol>
+ 
+    
+    <div class="navigation">
+        <div class="next-posts"><?php previous_comments_link() ?></div>
+        <div class="prev-posts"><?php next_comments_link() ?></div>
+    </div><br>
+ 
+     
+ 
+ <?php else : // this is displayed if there are no comments so far ?>
+ 
+    <?php if ( comments_open() ) : ?>
+   
+        <!-- If comments are open, but there are no comments. -->
+ 
+     <?php else : // comments are closed ?>
+        <p>Comments are closed.</p>
+ 
+    <?php endif; ?>
+ 
+<?php endif; ?>
+ 
+<?php if ( comments_open() ) : ?>
+ 
+
+ 
+<?php endif; ?>
+</div
+</div>
